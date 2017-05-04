@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 
-
-
 namespace EventSourcingSpike.Domain
 {
     public class ProductAggregate
     {
+        private readonly List<IEvent> _uncommittedEvents = new List<IEvent>();
+        public IEnumerable<IEvent> UncommittedEvents => _uncommittedEvents.AsReadOnly();
+
         public Money Price { get; private set; }
         public Money RecommendedRetailPrice { get; private set; }
         public string Name { get; private set; }
         public ProductDescription Description { get; private set; }
-
-        private readonly List<IEvent> _uncommittedEvents = new List<IEvent>();
-        public IEnumerable<IEvent> UncommittedEvents => _uncommittedEvents.AsReadOnly();
 
         public ProductAggregate()
         {
