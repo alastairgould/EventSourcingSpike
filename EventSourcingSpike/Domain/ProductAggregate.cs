@@ -24,22 +24,22 @@ namespace EventSourcingSpike.Domain
 
         public void ChangeName(string name)
         {
-            RaiseEvent(new ProductNameChanged(name));
+            ApplyEvent(new ProductNameChanged(name));
         }
 
         public void ChangePrice(Money price)
         {
-            RaiseEvent(new ProductPriceChanged(price));
+            ApplyEvent(new ProductPriceChanged(price));
         }
 
         public void ChangeRecommendedRetailPrice(Money price)
         {
-            RaiseEvent(new ProductRecommendedRetailPriceChanged(price));
+            ApplyEvent(new ProductRecommendedRetailPriceChanged(price));
         }
 
         public void ChangeDescription(ProductDescription description)
         {
-            RaiseEvent(new ProductDescriptionChanged(description));
+            ApplyEvent(new ProductDescriptionChanged(description));
         }
 
         private void When(ProductNameChanged evt)
@@ -70,7 +70,7 @@ namespace EventSourcingSpike.Domain
             }
         }
 
-        public void RaiseEvent(IEvent evt)
+        public void ApplyEvent(IEvent evt)
         {
             When((dynamic)evt);
             _uncommittedEvents.Add(evt);
